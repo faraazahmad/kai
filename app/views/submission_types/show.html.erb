@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @submission_type %>
+
+<div>
+  <%= link_to "Edit this submission type", edit_submission_type_path(@submission_type) %> |
+  <%= link_to "Back to submission types", submission_types_path %>
+
+  <%= button_to "Destroy this submission type", @submission_type, method: :delete %>
+</div>

@@ -1,0 +1,11 @@
+<% content_for :title, "New submission type" %>
+
+<h1>New submission type</h1>
+
+<%= render "form", submission_type: @submission_type %>
+
+<br>
+
+<div>
+  <%= link_to "Back to submission types", submission_types_path %>
+</div>
