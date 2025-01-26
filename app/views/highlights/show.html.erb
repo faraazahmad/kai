@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @highlight %>
+
+<div>
+  <%= link_to "Edit this highlight", edit_highlight_path(@highlight) %> |
+  <%= link_to "Back to highlights", highlights_path %>
+
+  <%= button_to "Destroy this highlight", @highlight, method: :delete %>
+</div>

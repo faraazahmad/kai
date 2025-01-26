@@ -1,0 +1,27 @@
+<%= form_with(model: highlight) do |form| %>
+  <% if highlight.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(highlight.errors.count, "error") %> prohibited this highlight from being saved:</h2>
+
+      <ul>
+        <% highlight.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :text, style: "display: block" %>
+    <%= form.text_field :text %>
+  </div>
+
+  <div>
+    <%= form.label :submission_id, style: "display: block" %>
+    <%= form.text_field :submission_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
