@@ -6,7 +6,6 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
 
   def self.from_omniauth(access_token)
-    puts access_token
     data = access_token.info
     user = User.where(email: data['email']).first
 
@@ -17,6 +16,9 @@ class User < ApplicationRecord
            password: Devise.friendly_token[0,20]
         )
     end
+
+    Rails.cache.write("user_#{user.id}_access_token", access_token.token, expires_in: 1.hour)
+
     user
   end
 end
