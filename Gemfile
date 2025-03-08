@@ -75,3 +75,5 @@ gem "omniauth-google-oauth2", "~> 1.2"
 gem "dotenv", "~> 3.1"
 
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "googleauth", "~> 1.13"
