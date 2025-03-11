@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :submissions
   get 'inertia-example', to: 'inertia_example#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,5 +8,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root to: 'application#dashboard'
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users #, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end
