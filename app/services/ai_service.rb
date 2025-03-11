@@ -1,7 +1,7 @@
 require 'net/http'
 require 'uri'
 
-class Services::AiService
+class AiService
   def get_pdf_markdown(url)
     uri = URI('http://localhost:8000/submission/pdf')
     data = { url: url }.to_json
@@ -18,9 +18,8 @@ class Services::AiService
     else
       puts "Request failed: #{response.code}"
     end
-    puts "Response body: #{response.body}"
 
-    response.body
+    JSON.parse(response.body)
   end
 
   def get_video_transcript(url)
@@ -39,8 +38,7 @@ class Services::AiService
     else
       puts "Request failed: #{response.code}"
     end
-    puts "Response body: #{response.body}"
 
-    response.body
+    JSON.parse(response.body)
   end
 end
