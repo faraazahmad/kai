@@ -39,9 +39,11 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
+    @submission.status = 'Awaiting Processing'
     @submission.user_id = current_user.id
 
     if @submission.save
+      GetSubmissionsContentJob.perform_later(@submission.id)
       redirect_to @submission, notice: "Submission was successfully created."
     else
       redirect_to new_submission_url, inertia: { errors: @submission.errors }
@@ -71,12 +73,12 @@ class SubmissionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def submission_params
-      params.require(:submission).permit(:title, :url, :user_id, :content)
+      params.require(:submission).permit(:title, :url, :user_id, :content, :status)
     end
 
     def serialize_submission(submission)
       submission.as_json(only: [
-        :id, :title, :url, :user_id, :content
+        :id, :title, :url, :user_id, :content, :status
       ])
     end
 end

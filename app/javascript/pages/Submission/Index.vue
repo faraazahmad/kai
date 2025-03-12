@@ -3,14 +3,15 @@
 
   <p v-if="flash.notice" class="notice">{{ flash.notice }}</p>
 
-  <h1>Submissions</h1>
+  <h1 class="text-2xl font-black mb-4">Submissions</h1>
 
   <div>
-    <div v-for="submission in submissions" :key="submission.id">
-      <Submission :submission="submission" />
-      <p>
-        <Link :href="`/submissions/${submission.id}`">Show this submission</Link>
-      </p>
+    <div class="grid grid-cols-4 gap-2" v-for="submission in submissions" :key="submission.id">
+      <Link :href="`/submissions/${submission.id}`">
+        <div class="bg-white shadow rounded border border-slate-200 px-4 py-2">
+          {{ submission.title }}
+        </div>
+      </Link>
     </div>
   </div>
 
