@@ -6,6 +6,7 @@ class GetSubmissionContentJob < ApplicationJob
     submission.update(status: 'Processing')
 
     ai_service = AiService.new
+    url = submission.url
 
     if match_pdf_url(url)
       content = ai_service.get_pdf_markdown(url)

@@ -43,7 +43,7 @@ class SubmissionsController < ApplicationController
     @submission.user_id = current_user.id
 
     if @submission.save
-      GetSubmissionsContentJob.perform_later(@submission.id)
+      GetSubmissionContentJob.perform_later(@submission.id)
       redirect_to @submission, notice: "Submission was successfully created."
     else
       redirect_to new_submission_url, inertia: { errors: @submission.errors }
