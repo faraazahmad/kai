@@ -5,6 +5,7 @@ export interface SubmissionType {
   user_id: string
   content: string
   status: string
+  submission_type: string
 }
 
 export type SubmissionFormType = Omit<SubmissionType, 'id'>

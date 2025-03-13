@@ -73,12 +73,12 @@ class SubmissionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def submission_params
-      params.require(:submission).permit(:title, :url, :user_id, :content, :status)
+      params.require(:submission).permit(:title, :url, :user_id, :content, :status, :submission_type)
     end
 
     def serialize_submission(submission)
       submission.as_json(only: [
-        :id, :title, :url, :user_id, :content, :status
+        :id, :title, :url, :user_id, :content, :status, :submission_type
       ])
     end
 end
