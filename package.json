@@ -17,7 +17,8 @@
     "vue-markdown-render": "^2.2.1",
     "vue-pdf": "^4.3.0",
     "vue-pdf-embed": "^2.1.2",
-    "vue-tsc": "^2.2.8"
+    "vue-tsc": "^2.2.8",
+    "yaml": "^2.7.0"
   },
   "scripts": {
     "check": "vue-tsc -p tsconfig.app.json && tsc -p tsconfig.node.json"
