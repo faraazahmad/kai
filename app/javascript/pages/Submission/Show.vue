@@ -27,7 +27,8 @@
       <iframe class="col-span-3 rounded shadow w-full h-150" :src="`${getYoutubeEmbedURL(submission)}?start=${videoStart}&autoplay=${autoplay}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen v-if="submission.submission_type === 'youtube'"></iframe>
       <iframe class="rounded shadow col-span-3 w-full h-screen" :src="submission.url" v-else></iframe>
       <div id="content" class="h-150 overflow-y-auto col-span-2 bg-white border border-slate-300 shadow p-8 rounded flex flex-col gap-4">
-        <h2 class="font-black text-xl text-slate-800 mb-4">Top 10 highlights from video:</h2>
+        <h2 class="font-black text-xl text-slate-800 mb-4" v-if="submission.submission_type === 'youtube'">Top 10 highlights from video:</h2>
+        <h2 class="font-black text-xl text-slate-800 mb-4" v-if="submission.submission_type === 'pdf'">Top 15 highlights from PDF:</h2>
         <div @click="() => setVideoStartTime(point)" v-for="point in parsedSubmission(submission)" class="cursor-pointer border border-slate-200 rounded bg-slate-50 px-8 py-4 hover:bg-indigo-100 hover:border-indigo-600 transition hover:shadow">
           {{point['text']}}
         </div>

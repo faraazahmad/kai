@@ -7,9 +7,10 @@ class GetSubmissionContentJob < ApplicationJob
 
     ai_service = AiService.new
     url = submission.url
+    title = submission.title
 
     if match_pdf_url(url)
-      content = ai_service.get_pdf_markdown(url)
+      content = ai_service.get_pdf_highlights(title, url)
       submission.content = content
       submission.submission_type = 'pdf'
     elsif match_youtube_url(url)

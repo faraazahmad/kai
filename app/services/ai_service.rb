@@ -2,9 +2,9 @@ require 'net/http'
 require 'uri'
 
 class AiService
-  def get_pdf_markdown(url)
+  def get_pdf_highlights(title, url)
     uri = URI('http://localhost:8000/submission/pdf')
-    data = { url: url }.to_json
+    data = { title: title, url: url }.to_json
 
     # Set headers
     headers = { 'Content-Type' => 'application/json' }
