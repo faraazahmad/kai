@@ -16,8 +16,10 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions/1
   def show
+    pdf_binary = read_pdf(@submission.title) if @submission.submission_type == 'pdf'
     render inertia: 'Submission/Show', props: {
-      submission: serialize_submission(@submission)
+      submission: serialize_submission(@submission),
+      pdf_binary: pdf_binary
     }
   end
 
@@ -66,6 +68,16 @@ class SubmissionsController < ApplicationController
   end
 
   private
+
+    def read_pdf(title)
+      file_name = "#{title.split(' ').join('_').downcase}.pdf"
+      absolute_root_path = File.expand_path("~/.kai/pdfs")
+      file_path = File.join(absolute_root_path, file_name)
+      content = File.read(file_path)
+
+      Base64.encode64(content)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
