@@ -9,7 +9,10 @@ class SubmissionsController < ApplicationController
     @submissions = Submission.all
     render inertia: 'Submission/Index', props: {
       submissions: @submissions.map do |submission|
-        serialize_submission(submission)
+        {
+          **serialize_submission(submission),
+          tags: submission.tags.as_json(only: [:name, :id])
+        }
       end
     }
   end
