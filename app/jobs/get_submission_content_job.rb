@@ -14,7 +14,7 @@ class GetSubmissionContentJob < ApplicationJob
       submission.content = content
       submission.submission_type = 'pdf'
     elsif match_youtube_url(url)
-      content = ai_service.get_video_transcript(url)
+      content = ai_service.get_video_transcript(title, url)
       submission.content = content
       submission.submission_type = 'youtube'
     end
