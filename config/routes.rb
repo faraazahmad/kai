@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "pdfs/open_pdf"
+  resources :submissions
   get 'inertia-example', to: 'inertia_example#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -6,6 +8,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
   root to: 'application#dashboard'
+  get "/submissions/:id/open-pdf", to: 'submissions#open_pdf'
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users #, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end
