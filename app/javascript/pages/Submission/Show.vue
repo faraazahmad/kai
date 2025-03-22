@@ -25,9 +25,8 @@
 
     <div class="grid grid-cols-5 gap-8">
       <iframe class="col-span-3 rounded shadow w-full h-150" :src="`${getYoutubeEmbedURL(submission)}?start=${videoStart}&autoplay=${autoplay}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen v-if="submission.submission_type === 'youtube'"></iframe>
-      <!-- <iframe class="rounded shadow col-span-3 w-full h-screen" :src="submission.url" v-else></iframe> -->
       <div class="rounded shadow col-span-3 w-full h-screen" v-else>
-        <PdfPage :page="2" :binary="pdf_binary" :submission="submission" />
+        <PdfPage :page="pdfPage" :binary="pdf_binary" :submission="submission" />
       </div>
       <div id="content" class="h-150 overflow-y-auto col-span-2 bg-white border border-slate-300 shadow p-8 rounded flex flex-col gap-4">
         <h2 class="font-black text-xl text-slate-800 mb-4" v-if="submission.submission_type === 'youtube'">Top 10 highlights from video:</h2>
@@ -50,6 +49,7 @@ import { parse } from 'yaml';
 
 let videoStart = ref(0);
 let autoplay = ref(0);
+let pdfPage = ref(0);
 
 const { submission, flash, pdf_binary } = defineProps<{
   submission: SubmissionType
@@ -58,8 +58,12 @@ const { submission, flash, pdf_binary } = defineProps<{
 }>()
 
 function setVideoStartTime(point) {
-  videoStart.value = Math.round(point['start']);
-  autoplay.value = 1;
+  if (submission.submission_type === 'youtube'){
+    videoStart.value = Math.round(point['start']);
+    autoplay.value = 1;
+  } else if (submission.submission_type === 'pdf') {
+    pdfPage.value = point['page'];
+  }
 }
 
 function getYoutubeEmbedURL(submission) {

@@ -67,6 +67,18 @@ class SubmissionsController < ApplicationController
     redirect_to submissions_url, notice: "Submission was successfully destroyed."
   end
 
+  def open_pdf
+    submission = Submission.find(params[:id])
+    title = submission.title
+    file_name = "#{title.split(' ').join('_').downcase}.pdf"
+    absolute_root_path = File.expand_path("~/.kai/pdfs")
+    file_path = File.join(absolute_root_path, file_name)
+    full_path = File.expand_path(file_path)
+
+    system("wsl-open #{full_path}")
+    redirect_to submission_url
+  end
+
   private
 
     def read_pdf(title)

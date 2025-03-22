@@ -3,19 +3,17 @@
 
   <p v-if="flash.notice" class="notice">{{ flash.notice }}</p>
 
-  <h1 class="text-2xl font-black mb-4">Submissions</h1>
+  <div class="container mx-auto mt-8">
+    <h1 class="text-4xl font-black mb-4">Submissions</h1>
 
-  <div>
-    <div class="grid grid-cols-4 gap-2" v-for="submission in submissions" :key="submission.id">
-      <Link :href="`/submissions/${submission.id}`">
-        <div class="bg-white shadow rounded border border-slate-200 px-4 py-2">
-          {{ submission.title }}
-        </div>
+    <div class="grid grid-cols-4 gap-2" >
+      <Link class="hover:bg-slate-100 transition hover:border-indigo-600 px-8 py-4 bg-white shadow rounded border border-slate-200 px-4 py-2" :href="`/submissions/${submission.id}`" v-for="submission in submissions" :key="submission.id">
+        {{ submission.title }}
       </Link>
     </div>
-  </div>
 
-  <Link href="/submissions/new">New submission</Link>
+    <Link href="/submissions/new">New submission</Link>
+  </div>
 </template>
 
 <script setup lang="ts">
