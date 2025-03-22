@@ -17,9 +17,11 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1
   def show
     pdf_binary = read_pdf(@submission.title) if @submission.submission_type == 'pdf'
+
     render inertia: 'Submission/Show', props: {
       submission: serialize_submission(@submission),
       pdf_binary: pdf_binary,
+      tags: @submission.tags
     }
   end
 

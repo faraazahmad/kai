@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_232033) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_22_101320) do
   create_table "submissions", force: :cascade do |t|
     t.string "title"
     t.string "url"
@@ -23,6 +23,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_232033) do
     t.text "summary"
     t.json "metadata"
     t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer "tag_id", null: false
+    t.integer "submission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_taggings_on_submission_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,4 +54,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_232033) do
   end
 
   add_foreign_key "submissions", "users"
+  add_foreign_key "taggings", "submissions"
+  add_foreign_key "taggings", "tags"
 end

@@ -1,7 +1,7 @@
 class Submission < ApplicationRecord
   belongs_to :user
+  has_many :taggings
+  has_many :tags, through: :taggings
 
-  def updated_at_ago
-    time_ago_in_words(updated_at)
-  end
+  validates :title, presence: true
 end

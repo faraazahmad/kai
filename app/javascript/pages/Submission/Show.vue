@@ -5,9 +5,14 @@
 
   <div class="container mx-auto flex flex-col gap-8 mt-8">
     <div class="flex flex-row items-center justify-between">
-      <div>
-        <Link href="/submissions"><h2 class="text-md">Submissions</h2></Link>
-        <h1 class="text-3xl font-black">{{ submission.title }}</h1>
+      <div class="flex flex-col gap-0 w-full flex-grow">
+        <h1 class="text-4xl font-thin w-full">
+          <Link href="/submissions">Submissions</Link> /
+          <span class="font-black">{{ submission.title }}</span>
+        </h1>
+        <div class="mt-4 flex flex-row gap-4" v-if="tags">
+          <Link class="text-sm bg-slate-100 rounded px-4 py-2" v-for="tag in tags" :key="tag">{{ tag.name }}</Link>
+        </div>
       </div>
 
       <div class="flex flex-row gap-4">
@@ -51,9 +56,10 @@ let videoStart = ref(0);
 let autoplay = ref(0);
 let pdfPage = ref(0);
 
-const { submission, flash, pdf_binary } = defineProps<{
+const { submission, flash, pdf_binary, tags } = defineProps<{
   submission: SubmissionType
   pdf_binary: String,
+  tags: Array,
   flash: { notice?: string }
 }>()
 

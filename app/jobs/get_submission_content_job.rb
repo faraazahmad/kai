@@ -15,7 +15,9 @@ class GetSubmissionContentJob < ApplicationJob
       submission.submission_type = 'pdf'
     elsif match_youtube_url(url)
       content = ai_service.get_video_transcript(title, url)
-      submission.content = content
+      submission.content = content['summary']
+      genres_string = content['genres']
+      attach_genres(genres_string, submission_id)
       submission.submission_type = 'youtube'
     end
 
@@ -24,6 +26,13 @@ class GetSubmissionContentJob < ApplicationJob
   end
 
   private
+
+  def attach_genres(genres_string, submission_id)
+    genres_string.split(',').each do |genre|
+      tag = Tag.find_or_create_by(name: genre)
+      Tagging.create({ tag_id: tag.id, submission_id: submission_id })
+    end
+  end
 
   def match_pdf_url(url)
     regex = %r{https?://[^\s]+\.pdf$}
