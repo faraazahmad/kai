@@ -7,11 +7,11 @@
     <div class="flex flex-row items-center justify-between">
       <div class="flex flex-col gap-0 w-full flex-grow">
         <h1 class="text-4xl font-thin w-full">
-          <Link href="/submissions">Submissions</Link> /
+          <Link class="hover:text-indigo-600 transition" href="/submissions">Submissions</Link> /
           <span class="font-black">{{ submission.title }}</span>
         </h1>
         <div class="mt-4 flex flex-row gap-4" v-if="tags">
-          <Link class="text-sm bg-slate-100 rounded px-4 py-2" v-for="tag in tags" :key="tag">{{ tag.name }}</Link>
+          <Link class="text-sm hover:bg-slate-200 transition border border-slate-300 bg-slate-100 rounded-full px-4 py-2" v-for="tag in tags" :key="tag">{{ tag.name }}</Link>
         </div>
       </div>
 

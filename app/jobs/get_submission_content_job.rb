@@ -11,7 +11,9 @@ class GetSubmissionContentJob < ApplicationJob
 
     if match_pdf_url(url)
       content = ai_service.get_pdf_highlights(title, url)
-      submission.content = content
+      submission.content = content['summary']
+      genres_string = content['genres']
+      attach_genres(genres_string, submission_id)
       submission.submission_type = 'pdf'
     elsif match_youtube_url(url)
       content = ai_service.get_video_transcript(title, url)
@@ -20,6 +22,7 @@ class GetSubmissionContentJob < ApplicationJob
       attach_genres(genres_string, submission_id)
       submission.submission_type = 'youtube'
     end
+
 
     submission.status = 'Processed'
     submission.save()

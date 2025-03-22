@@ -10,8 +10,8 @@
     </div>
 
     <div class="grid grid-cols-4 gap-4 mt-8">
-      <Link class="grid grid-rows-4 hover:bg-slate-100 transition hover:border-indigo-600 bg-white shadow hover:shadow-lg rounded border border-slate-300" :href="`/submissions/${submission.id}`" v-for="submission in submissions" :key="submission.id">
-        <div class="row-span-1 border-b border-slate-300 px-8 py-4 flex flex-row gap-2 justify-end">
+      <Link class="grid grid-rows-2 hover:bg-slate-100 transition hover:border-indigo-600 bg-white shadow hover:shadow-lg rounded border border-slate-300" :href="`/submissions/${submission.id}`" v-for="submission in submissions" :key="submission.id">
+        <div class="row-span-1 px-4 pb-2 text-sm flex flex-row justify-start items-center">
           <Link
             :href="`/submissions/${submission.id}/edit`"
             class="rounded text-slate-800 hover:bg-indigo-200 transition px-4 py-2"
@@ -27,7 +27,7 @@
             Delete
           </Link>
         </div>
-        <div class="text-xl row-span-3 px-8 py-4 flex flex-col">
+        <div class="text-2xl row-span-1 px-8 py-4 flex flex-col justify-end">
           <p class="text-sm text-slate-400 text-italic">Created {{ formatDistance(submission.updated_at, new Date(), { addSuffix: true }) }}</p>
           <h3>{{ submission.title }}</h3>
         </div>
