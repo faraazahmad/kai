@@ -75,7 +75,13 @@ class SubmissionsController < ApplicationController
     file_path = File.join(absolute_root_path, file_name)
     full_path = File.expand_path(file_path)
 
-    system("wsl-open #{full_path}")
+    if File.exists?("/proc/sys/fs/binfmt_misc/WSLInterop") # Best known way to check for WSL Linux shell
+      system("wsl-open #{full_path}")
+    else
+      # TODO: check for Mac vs Linux (requires xdg-open)
+      system("open #{full_path}")
+    end
+
     redirect_to submission_url
   end
 
