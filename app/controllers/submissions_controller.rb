@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :set_submission, only: %i[ show edit update destroy ]
+  before_action :set_submission, only: %i[ show edit update destroy process_submission]
   before_action :authenticate_user!
 
   inertia_share flash: -> { flash.to_hash }
@@ -15,6 +15,14 @@ class SubmissionsController < ApplicationController
         }
       end
     }
+  end
+
+  def process_submission
+    @submission.status = 'Processing'
+    @submission.save
+
+    GetSubmissionContentJob.perform_later(@submission.id)
+    redirect_to @submission
   end
 
   # GET /submissions/1
@@ -46,7 +54,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
-    @submission.status = 'Awaiting Processing'
+    @submission.status = 'Processing'
     @submission.user_id = current_user.id
 
     if @submission.save

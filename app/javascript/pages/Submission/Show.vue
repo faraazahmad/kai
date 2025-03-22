@@ -5,7 +5,7 @@
 
   <div class="container mx-auto flex flex-col gap-8 mt-8">
     <div class="flex flex-row items-center justify-between">
-      <div class="flex flex-col gap-0 w-full flex-grow">
+      <div class="flex flex-col gap-0">
         <h1 class="text-4xl font-thin w-full">
           <Link class="hover:text-indigo-600 transition" href="/submissions">Submissions</Link> /
           <span class="font-black">{{ submission.title }}</span>
@@ -15,8 +15,16 @@
         </div>
       </div>
 
-      <div class="flex flex-row gap-4">
+      <div class="flex flex-row gap-4 justify-end flex-grow">
         <Link class="bg-white rounded shadow border border-slate-300 hover:bg-slate-200 transition px-4 py-2" :href="`/submissions/${submission.id}/edit`">Edit</Link>
+        <Link
+          :href="`/submissions/${submission.id}/process`"
+          class="bg-emerald-100 rounded shadow border border-emerald-300 text-emerald-800 hover:bg-emerald-200 transition px-4 py-2"
+          as="button"
+          method="post"
+        >
+          Re-process
+        </Link>
         <Link
           :href="`/submissions/${submission.id}`"
           class="bg-rose-100 rounded shadow border border-rose-300 text-rose-800 hover:bg-rose-200 transition px-4 py-2"
@@ -28,7 +36,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-5 gap-8">
+    <div class="grid grid-cols-5 gap-8" v-if="submission.status === 'Processed'">
       <iframe class="col-span-3 rounded shadow w-full h-150" :src="`${getYoutubeEmbedURL(submission)}?start=${videoStart}&autoplay=${autoplay}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen v-if="submission.submission_type === 'youtube'"></iframe>
       <div class="rounded shadow col-span-3 w-full h-screen" v-else>
         <PdfPage :page="pdfPage" :binary="pdf_binary" :submission="submission" />
@@ -41,6 +49,11 @@
         </div>
       </div>
     </div>
+
+    <div class="w-full rounded border border-emerald-500 bg-radial-[at_25%_25%] from-emerald-100 to-green-200 to-75% px-16 py-8 flex flex-row items-center" v-else-if="submission.status === 'Processing'">
+      Processing
+    </div>
+
   </div>
 </template>
 
