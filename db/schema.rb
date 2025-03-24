@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_22_101320) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_24_195410) do
+  create_table "notes", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "submission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_notes_on_submission_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "submissions", force: :cascade do |t|
     t.string "title"
     t.string "url"
@@ -53,6 +63,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_22_101320) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "notes", "submissions"
+  add_foreign_key "notes", "users"
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "submissions"
   add_foreign_key "taggings", "tags"

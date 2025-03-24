@@ -3,6 +3,11 @@ class SubmissionsController < ApplicationController
   before_action :authenticate_user!
 
   inertia_share flash: -> { flash.to_hash }
+  inertia_share do
+    {
+      user: current_user,
+    } if user_signed_in?
+  end
 
   # GET /submissions
   def index
@@ -31,6 +36,7 @@ class SubmissionsController < ApplicationController
 
     render inertia: 'Submission/Show', props: {
       submission: serialize_submission(@submission),
+      notes: @submission.notes,
       pdf_binary: pdf_binary,
       tags: @submission.tags
     }
