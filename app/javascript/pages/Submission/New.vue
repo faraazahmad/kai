@@ -1,18 +1,17 @@
 <template>
+
   <Head title="New submission" />
 
-  <h1>New submission</h1>
+  <div class="flex flex-row items-center min-h-screen bg-slate-100">
+    <div class="container mx-auto bg-white w-1/2 rounded p-8 shadow border border-slate-300">
 
-  <Form
-    :submission="submission"
-    submitText="Create Submission"
-    @onSubmit="handleSubmit"
-  />
+      <h1 class="text-4xl mb-8">
+        <Link href="/submissions" class="transition hover:text-indigo-500 font-thin">Submissions</Link> / 
+        <span class="font-black">New submission</span>
+      </h1>
 
-  <br />
-
-  <div>
-    <Link href="/submissions">Back to submissions</Link>
+      <Form :submission="submission" submitText="Submit" @onSubmit="handleSubmit" />
+    </div>
   </div>
 </template>
 
