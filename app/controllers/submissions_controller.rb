@@ -12,13 +12,15 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   def index
     @submissions = Submission.all
+    tags = Tag.all
     render inertia: 'Submission/Index', props: {
       submissions: @submissions.map do |submission|
         {
           **serialize_submission(submission),
           tags: submission.tags.as_json(only: [:name, :id])
         }
-      end
+      end,
+      tags: tags.as_json(only: [:name, :id])
     }
   end
 
