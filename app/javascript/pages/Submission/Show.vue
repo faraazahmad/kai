@@ -86,9 +86,13 @@
           class="h-150 overflow-y-auto col-span-2 bg-white border border-slate-300 shadow p-8 rounded flex flex-col gap-4"
           v-else-if="currentTab === 'notes'">
           <h2 class="font-black text-xl text-slate-800 mb-4">Notes</h2>
-          <div v-for="note in notes"
-            class="border border-slate-200 rounded bg-slate-50 px-8 py-4">
+          <div v-for="note in notes" class="note border border-slate-200 rounded bg-slate-50 px-8 py-4 relative">
             {{ note['content'] }}
+            <Link :href="`/notes/${note.id}`"
+              class="note-delete-button bg-rose-100 rounded shadow border border-rose-300 text-rose-800 hover:bg-rose-200 px-4 py-2 absolute -top-2 -right-4"
+              as="button" method="delete">
+            Delete
+            </Link>
           </div>
         </div>
       </div>
@@ -165,4 +169,14 @@ function parsedSubmission(submission) {
 
 </script>
 
-<style></style>
+<style scoped>
+.note .note-delete-button {
+  display: none;
+  opacity: 0;
+}
+
+.note:hover .note-delete-button {
+  display: inline;
+  opacity: 1;
+}
+</style>
