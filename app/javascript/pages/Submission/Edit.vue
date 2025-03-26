@@ -1,19 +1,21 @@
 <template>
+
   <Head title="Editing submission" />
 
-  <h1>Editing submission</h1>
+  <div class="flex flex-row items-center min-h-screen bg-slate-100">
+    <div class="container mx-auto w-1/2">
+      <Link class="px-4 py-2 bg-white border border-slate-300 inline-block mb-4 hover:bg-slate-100 transition rounded shadow"
+        :href="`/submissions/${submission.id}`">Cancel</Link>
+      <div class="bg-white rounded p-8 shadow border border-slate-300">
 
-  <Form
-    :submission="submission"
-    submitText="Update Submission"
-    @onSubmit="handleSubmit"
-  />
+        <h1 class="text-4xl mb-8">
+          <Link href="/submissions" class="transition hover:text-indigo-500 font-thin">Submissions</Link> /
+          <span class="font-black">New submission</span>
+        </h1>
 
-  <br />
-
-  <div>
-    <Link :href="`/submissions/${submission.id}`">Show this submission</Link> |
-    <Link href="/submissions">Back to submissions</Link>
+        <Form :submission="submission" submitText="Save" @onSubmit="handleSubmit" />
+      </div>
+    </div>
   </div>
 </template>
 
