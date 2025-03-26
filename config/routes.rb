@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes
   get "pdfs/open_pdf"
   resources :submissions
   get 'inertia-example', to: 'inertia_example#index'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root to: 'application#dashboard'
   get "/submissions/:id/open-pdf", to: 'submissions#open_pdf'
+  post "/submissions/:id/process", to: 'submissions#process_submission'
 
   devise_for :users #, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end

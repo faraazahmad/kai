@@ -31,6 +31,8 @@ class GetSubmissionContentJob < ApplicationJob
   private
 
   def attach_genres(genres_string, submission_id)
+    Tagging.where(submission: submission_id).destroy_all
+
     genres_string.split(',').each do |genre|
       tag = Tag.find_or_create_by(name: genre)
       Tagging.create({ tag_id: tag.id, submission_id: submission_id })

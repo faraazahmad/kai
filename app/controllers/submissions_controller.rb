@@ -1,20 +1,35 @@
 class SubmissionsController < ApplicationController
-  before_action :set_submission, only: %i[ show edit update destroy ]
+  before_action :set_submission, only: %i[ show edit update destroy process_submission]
   before_action :authenticate_user!
 
   inertia_share flash: -> { flash.to_hash }
+  inertia_share do
+    {
+      user: current_user,
+    } if user_signed_in?
+  end
 
   # GET /submissions
   def index
     @submissions = Submission.all
+    tags = Tag.all
     render inertia: 'Submission/Index', props: {
       submissions: @submissions.map do |submission|
         {
           **serialize_submission(submission),
           tags: submission.tags.as_json(only: [:name, :id])
         }
-      end
+      end,
+      tags: tags.as_json(only: [:name, :id])
     }
+  end
+
+  def process_submission
+    @submission.status = 'Processing'
+    @submission.save
+
+    GetSubmissionContentJob.perform_later(@submission.id)
+    redirect_to @submission
   end
 
   # GET /submissions/1
@@ -23,6 +38,7 @@ class SubmissionsController < ApplicationController
 
     render inertia: 'Submission/Show', props: {
       submission: serialize_submission(@submission),
+      notes: @submission.notes,
       pdf_binary: pdf_binary,
       tags: @submission.tags
     }
@@ -46,7 +62,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
-    @submission.status = 'Awaiting Processing'
+    @submission.status = 'Processing'
     @submission.user_id = current_user.id
 
     if @submission.save
