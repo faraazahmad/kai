@@ -5,6 +5,7 @@
 
     <p v-if="flash.notice" class="notice">{{ flash.notice }}</p>
 
+    <Navbar :user="user" />
     <div class="container mx-auto pt-8 min-h-screen">
       <div class="flex flex-row justify-between items-center relative">
         <h1 class="text-4xl font-dm-serif mb-4 text-stone-900">Submissions</h1>
@@ -64,13 +65,15 @@
 import { Head, Link } from '@inertiajs/vue3'
 import { ref, reactive } from 'vue'
 import Submission from './Submission.vue'
+import Navbar from '../Navbar.vue'
 import { SubmissionType } from './types'
 import { formatDistance } from 'date-fns';
 import Multiselect from 'vue-multiselect';
 import "vue-multiselect/dist/vue-multiselect.min.css";
 
-const { submissions, flash, tags } = defineProps<{
+const { submissions, flash, tags, user } = defineProps<{
   submissions: SubmissionType[],
+  user: Object,
   tags: Array,
   flash: { notice?: string }
 }>()
