@@ -59,7 +59,7 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   def destroy
     @note.destroy!
-    redirect_to notes_url, notice: "Note was successfully destroyed."
+    redirect_to submission_url(@note.submission), inertia: { errors: @note.errors }
   end
 
   private

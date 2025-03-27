@@ -1,13 +1,13 @@
 <template>
   <form class="flex flex-col gap-4" @submit.prevent="emit('onSubmit', form)">
     <div>
-      <textarea placeholder="Add note content here..." class="bg-transparent border-none w-full rounded h-48" name="content" id="content" v-model="form.content" />
+      <textarea placeholder="Add note content here..." class="font-serif text-lg bg-transparent border-none w-full rounded h-48" name="content" id="content" v-model="form.content" />
       <div v-if="form.errors.content" class="error">
         {{ form.errors.content }}
       </div>
     </div>
     <div>
-      <button class="px-4 py-2 rounded bg-amber-400 text-black border border-amber-500 hover:bg-amber-600/60 transition w-full" type="submit" :disabled="form.processing">
+      <button class="px-4 py-2 rounded bg-green-700 font-medium text-white border border-green-900 hover:bg-green-800 transition w-full" type="submit" :disabled="form.processing">
         {{ submitText }}
       </button>
     </div>

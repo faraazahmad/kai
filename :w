@@ -1,0 +1,68 @@
+<div class="page">
+  <div class="box">
+    <h2 class="heading">Log in</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
+
+<style>
+.heading {
+  font-size: 3rem;
+  font-family: 'DM Serif Display', serif;
+  font-weight: 900;
+}
+
+.page {
+  background: #feece8;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: auto;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  border: solid 1px #222B2E;
+  padding: 2rem 4rem;
+  height: auto;
+  width: 33%;
+  box-shadow: 0 0 1rem 0 rgba(0,0,0,0.15);
+}
+.field {
+  width: 100%;
+}
+.form-input {
+  border-radius: 0.5rem;
+}
+</style>
