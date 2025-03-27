@@ -15,7 +15,7 @@
       </div>
     </div>
     <div>
-      <button class="bg-green-600 border text-white transition px-4 py-2 rounded shadow border-green-800 hover:bg-green-700" type="submit" :disabled="form.processing">
+      <button class="bg-green-700 border text-white transition px-4 py-2 rounded shadow border-green-900 hover:bg-green-800" type="submit" :disabled="form.processing">
         {{ submitText }}
       </button>
     </div>
